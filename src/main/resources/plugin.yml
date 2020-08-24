@@ -1,0 +1,10 @@
+name: JElytra
+version: ${project.version}
+main: onl.tesseract.jelytra.JElytra
+api-version: 1.16
+depend: [Multiverse-Core, Vault, LuckPerms, Cartographer2]
+
+commands:
+  race:
+    description: Course d'elytra
+    usage: /race
