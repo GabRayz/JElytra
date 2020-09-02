@@ -71,6 +71,8 @@ public class Race {
         if (endpoint != null)
             endpoint.hideAll();
         this.endpoint = new Endpoint(this, center, radius);
+        if (state == State.CONSTRUCTION)
+            endpoint.show(null);
     }
 
     public void start(Player player)
@@ -100,7 +102,7 @@ public class Race {
 
         player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
         player.sendMessage(JElytra.chatFormat + ChatColor.LIGHT_PURPLE + "Vous avez fini la course avec un temps de " + ChatColor.GOLD + Util.durationToString(duration));
-        if (ranking.get(player.getUniqueId()).toMillis() > duration.toMillis())
+        if (ranking.containsKey(player.getUniqueId()) && ranking.get(player.getUniqueId()).toMillis() > duration.toMillis())
             player.sendMessage(JElytra.chatFormat + ChatColor.LIGHT_PURPLE + "C'est votre nouveau record !");
         if (getRecord() == null || duration.toMillis() < getRecord().toMillis())
             Bukkit.getOnlinePlayers().forEach(p ->
