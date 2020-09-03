@@ -71,7 +71,7 @@ public class RaceCommand implements CommandExecutor, TabCompleter {
                 {
                     try {
                         int index = Integer.parseInt(args[2]);
-                        if (index > 0 && index < r4.checkpoints.size()) {
+                        if (index >= 0 && index < r4.checkpoints.size()) {
                             r4.removeCheckpoint(index);
                             player.sendMessage(JElytra.chatFormat + "Checkpoint retiré");
                         }else
