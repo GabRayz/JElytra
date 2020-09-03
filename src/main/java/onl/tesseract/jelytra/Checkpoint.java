@@ -5,6 +5,7 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.meta.FireworkMeta;
+import org.bukkit.scoreboard.ScoreboardManager;
 
 import java.util.*;
 
@@ -63,7 +64,9 @@ public class Checkpoint {
             else
                 player.setCompassTarget(race.getEndpoint().getCenter());
 
-            player.sendTitle("", ChatColor.LIGHT_PURPLE + "" + (race.checkpoints.indexOf(this) + 1) + "/" + (race.checkpoints.size() + 1));
+            // player.sendTitle("", ChatColor.LIGHT_PURPLE + "" + (race.checkpoints.indexOf(this) + 1) + "/" + (race.checkpoints.size() + 1));
+
+            player.sendMessage(JElytra.chatFormat + ChatColor.LIGHT_PURPLE + "Checkpoint : " + (race.checkpoints.indexOf(this) + 1) + "/" + (race.checkpoints.size() + 1));
         }else {
             this.passed.remove(player.getUniqueId());
             if (circles.containsKey(player))
