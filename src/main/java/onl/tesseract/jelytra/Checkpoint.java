@@ -64,6 +64,18 @@ public class Checkpoint {
             else
                 player.setCompassTarget(race.getEndpoint().getCenter());
 
+            // Show next checkpoints
+            for (int i = getIndex() + 1; i < getIndex() + 3; i++)
+            {
+                if (i < race.checkpoints.size())
+                    race.checkpoints.get(i).show(player, i == getIndex() + 1 ? Color.AQUA : Color.RED);
+                else if (getIndex() < race.checkpoints.size())
+                {
+                    race.getEndpoint().show(player);
+                    break;
+                }
+            }
+
             // player.sendTitle("", ChatColor.LIGHT_PURPLE + "" + (race.checkpoints.indexOf(this) + 1) + "/" + (race.checkpoints.size() + 1));
 
             player.sendMessage(JElytra.chatFormat + ChatColor.LIGHT_PURPLE + "Checkpoint : " + (race.checkpoints.indexOf(this) + 1) + "/" + (race.checkpoints.size() + 1));
@@ -82,7 +94,14 @@ public class Checkpoint {
 
     public void show(Player player)
     {
-        circles.put(player, new Circle(player, center, radius, Color.AQUA));
+        show(player, Color.AQUA);
+    }
+
+    public void show(Player player, Color color)
+    {
+        if (circles.containsKey(player))
+            circles.get(player).remove();
+        circles.put(player, new Circle(player, center, radius, color));
     }
 
     public boolean isPassing(Player player)

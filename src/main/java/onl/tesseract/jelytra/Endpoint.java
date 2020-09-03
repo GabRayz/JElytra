@@ -12,6 +12,8 @@ public class Endpoint extends Checkpoint{
     @Override
     public void show(Player player)
     {
+        if (circles.containsKey(player))
+            circles.get(player).remove();
         circles.put(player, new EndCircle(player, center, radius));
     }
 }

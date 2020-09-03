@@ -56,6 +56,7 @@ public class Circle {
     }
 
     public void remove() {
+        System.out.println("test");
         task.cancel();
     }
 }

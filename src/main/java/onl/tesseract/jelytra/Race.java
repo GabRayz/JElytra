@@ -81,6 +81,10 @@ public class Race {
         player.teleport(startPoint);
         player.sendTitle(ChatColor.BOLD + "" + ChatColor.GREEN + "GO !", "", 0, 40, 10);
         checkpoints.get(0).show(player);
+        if (checkpoints.size() > 1)
+            checkpoints.get(1).show(player, Color.RED);
+        else
+            endpoint.show(player);
         runners.put(player, Instant.now());
         player.setGliding(true);
 
