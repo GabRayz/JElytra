@@ -67,11 +67,16 @@ public final class JElytra extends JavaPlugin implements Listener {
                 if (cp != null && cp.isPassing(event.getPlayer()))
                 {
                     cp.pass(event.getPlayer(), true);
-                    Checkpoint next = race.getNextCheckpoint(event.getPlayer());
-                    if (next != null)
-                        next.show(event.getPlayer());
-                    else
-                        race.getEndpoint().show(event.getPlayer());
+                    for (int i = cp.getIndex(); i < cp.getIndex() + 2; i++)
+                    {
+                        if (i < race.checkpoints.size())
+                            race.checkpoints.get(i).show(event.getPlayer());
+                        else
+                        {
+                            race.getEndpoint().show(event.getPlayer());
+                            break;
+                        }
+                    }
                 } else if (cp == null)
                 {
                     if (race.getEndpoint().isPassing(event.getPlayer()))

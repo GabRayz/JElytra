@@ -6,10 +6,7 @@ import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.meta.FireworkMeta;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public class Checkpoint {
     Set<UUID> passed = new HashSet<>();
@@ -35,21 +32,25 @@ public class Checkpoint {
         return radius;
     }
 
+    public int getIndex() {
+        return this.race.checkpoints.indexOf(this);
+    }
+
     public void pass(Player player, boolean passed)
     {
-        if (passed) {
+        if (passed)
+        {
             this.passed.add(player.getUniqueId());
             player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
-            Firework fw = player.getWorld().spawn(center.clone().add(0, radius + 3, 0), Firework.class);
-            FireworkMeta meta = fw.getFireworkMeta();
-            meta.addEffect(FireworkEffect.builder().withColor(Color.LIME)
-                    .flicker(true).with(FireworkEffect.Type.BALL).withFade(Color.YELLOW).build());
-            fw.setFireworkMeta(meta);
-            fw.detonate();
+
+            this.hide(player);
+            /*
             if (circles.containsKey(player))
                 circles.get(player).setColor(Color.LIME);
             else
                 circles.put(player, new Circle(player, center, radius, Color.LIME));
+
+             */
 
             if (this instanceof Endpoint) {
                 player.setCompassTarget(player.getWorld().getSpawnLocation());
@@ -97,5 +98,20 @@ public class Checkpoint {
         for (Player p : circles.keySet())
             circles.get(p).remove();
         circles.clear();
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Checkpoint that = (Checkpoint) o;
+        return radius == that.radius &&
+                Objects.equals(center, that.center);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(center, radius);
     }
 }
