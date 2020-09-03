@@ -108,7 +108,7 @@ public class Race {
         player.sendMessage(JElytra.chatFormat + ChatColor.LIGHT_PURPLE + "Vous avez fini la course avec un temps de " + ChatColor.GOLD + Util.durationToString(duration));
         if (ranking.containsKey(player.getUniqueId()) && ranking.get(player.getUniqueId()).toMillis() > duration.toMillis())
             player.sendMessage(JElytra.chatFormat + ChatColor.LIGHT_PURPLE + "C'est votre nouveau record !");
-        if (getRecord() == null || duration.toMillis() < getRecord().toMillis())
+        if (rankingDisplay != null && (getRecord() == null || duration.toMillis() < getRecord().toMillis()))
             Bukkit.getOnlinePlayers().forEach(p ->
                     p.sendMessage(JElytra.chatFormat + ChatColor.BOLD + "" + ChatColor.GOLD + player.getName() + ChatColor.LIGHT_PURPLE + " a battu le record de la course " + name + " avec un temps de " + ChatColor.GOLD + Util.durationToString(duration)));
         if (! ranking.containsKey(player.getUniqueId()) || duration.toMillis() < ranking.get(player.getUniqueId()).toMillis())
